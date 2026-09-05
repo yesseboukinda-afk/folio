@@ -100,13 +100,16 @@ main {
 
 .hero-card__avatar {
   position: relative;
+  width: 9rem;
+  height: 9rem;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  border-radius: 50%;
 }
 
 .hero-card__avatar img {
-  width: 9rem;
-  height: 9rem;
-  border-radius: 9999px;
-  border: 4px solid #ffffff;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -542,6 +545,11 @@ main {
   }
 
   .hero-card__avatar img {
+    width: 7rem;
+    height: 7rem;
+  }
+
+  .hero-card__avatar {
     width: 7rem;
     height: 7rem;
   }
