@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Typefolio - Portfolio statique converti en HTML, CSS et JavaScript"
+    />
+    <title>Typefolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="announcement-bar">
+      <div class="announcement-bar__overlay"></div>
+    </div>
+
+    <main>
+      <section class="hero-section">
+        <div class="hero-banner">
+          <img
+            src="public/images/hero-sec/banner-bg-img.png"
+            alt="bannière principale"
+            class="hero-banner__image"
+          />
+        </div>
+        <div class="hero-card container">
+          <div class="hero-card__avatar">
+            <img
+              src="public/images/hero-sec/user-img.png"
+              alt="Photo de Yesse Boukinda"
+            />
+            <span class="hero-card__status"></span>
+          </div>
+          <div class="hero-card__info">
+            <h1>Développeur web et mobile</h1>
+            <p class="hero-card__role">Webmaster et développeur d'applications</p>
+            <div class="hero-card__location">
+              <img src="public/images/icon/map-icon.svg" alt="icône carte" />
+              <span>Institut national de la Poste, des Technologies de l'Information et de la Communication</span>
+            </div>
+          </div>
+          <div class="hero-card__actions">
+            <div class="social-links">
+              <a href="https://github.com/yesseboukinda-afk" target="_blank" rel="noreferrer noopener">
+                <img src="public/images/icon/github-icon.svg" alt="GitHub" />
+              </a>
+              <a href="https://facebook.com/yesseboukinda" target="_blank" rel="noreferrer noopener">
+                <img src="public/images/icon/facebook-icon.svg" alt="Facebook" />
+              </a>
+            </div>
+            <a href="mailto:yesseboukinda@gmail.com" class="button button--primary">
+              <img src="public/images/icon/spark-icon.svg" alt="étincelle" />
+              <span>Contactez-moi</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <section class="about-section">
+        <div class="container about-panel">
+          <div class="about-intro">
+            <span class="section-label">À propos</span>
+            <h2>
+              Bonjour. Je suis développeur web et mobile, spécialisé dans la création de sites et d'applications utiles.
+              <span>Je conçois des expériences numériques</span> avec une attention particulière portée à la simplicité, la performance et la fiabilité.
+            </h2>
+            <p class="about-subtitle">
+              Passionné par le web, le développement et la communication digitale.
+            </p>
+          </div>
+          <div class="about-services about-services--split">
+            <div class="services-column">
+              <span class="section-label">Compétences</span>
+              <div class="service-tags" id="skills-tags"></div>
+            </div>
+            <div class="services-column">
+              <span class="section-label">Outils</span>
+              <div class="service-tags" id="tools-tags"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <section class="featured-work-section">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Travaux phares</span>
+            </div>
+            <a href="CV_Boukinda_Mabika_Yesse.pdf" class="button button--outline">Télécharger mon CV</a>
+          </div>
+          <div class="featured-grid" id="featured-grid"></div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <section class="experience-section">
+        <div class="container">
+          <div class="section-header section-header--simple">
+            <span class="section-label">Expérience</span>
+          </div>
+          <div class="experience-list" id="experience-list"></div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <section class="education-section">
+        <div class="container">
+          <div class="section-header section-header--simple">
+            <span class="section-label">Formation</span>
+          </div>
+          <div class="education-list" id="education-list"></div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <section class="contact-section" id="contact">
+        <div class="container contact-panel">
+          <div class="section-header">
+            <div>
+              <span class="section-label">Contact</span>
+              <h4>Construisons quelque chose de remarquable ensemble.</h4>
+            </div>
+            <a href="mailto:yesseboukinda@gmail.com" class="button button--primary">Envoyer un message</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <section class="projects-section">
+        <div class="container projects-panel">
+          <div class="project-column">
+            <span class="section-label">Études de cas</span>
+            <div class="project-links" id="case-studies"></div>
+          </div>
+          <div class="project-column">
+            <span class="section-label">Projets annexes</span>
+            <div class="project-links" id="side-projects"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-content">
+        <p>
+          2026 © Conception et maintenance par Yesse Boukinda
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
