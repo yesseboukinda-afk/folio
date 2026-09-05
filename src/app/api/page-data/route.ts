@@ -3,45 +3,45 @@ import { NextResponse } from "next/server";
 const experienceData = [
     {
         icon: "/images/icon/tailwind-icon.svg",
-        role: "Product Designer, Tailwind",
-        location: "Remote",
-        startYear: "2022",
-        endYear: "Present",
+        role: "Mise en place d'un système de vidéosurveillance",
+        location: "EIT Groupe, Port-Gentil",
+        startYear: "2025",
+        endYear: "2025",
         bulletPoints: [
-            "Led end-to-end redesign of dashboard UI, improving user retention by 23%",
-            "Collaborated with engineers and product managers to ship features faster",
-            "Designed components used in a system adopted by 4+ internal teams"
+            "Déploiement du système de vidéosurveillance pour le groupe EIT",
+            "Installation et configuration des caméras et du serveur de stockage vidéo",
+            "Maintenance et suivi technique du système"
         ]
     },
     {
         icon: "/images/icon/asana-icon.svg",
-        role: "UI/UX Designer - Asana",
-        location: "New York, NY",
-        startYear: "2019",
-        endYear: "2022",
+        role: "Création d'une gestion électronique de documents",
+        location: "EIT Groupe",
+        startYear: "2026",
+        endYear: "2026",
         bulletPoints: [
-            "Created design systems for client projects across finance and healthcare",
-            "Conducted user testing and research to validate designs",
-            "Helped junior designers grow via mentorship"
+            "Conception et réalisation d'une solution de gestion électronique de documents",
+            "Mise en ligne et documentation de la solution",
+            "Accompagnement de l'équipe dans son utilisation"
         ]
     },
 ]
 
 const educationData = [
     {
-        date: "Sep 2015 - May 2019",
-        title: "B.F.A. in Graphic Design",
-        subtitle: "Pratt Institute — Brooklyn, NY"
+        date: "2023",
+        title: "BAC A1",
+        subtitle: "Lycée"
     },
     {
-        date: "Mar 2021 - Aug 2021",
-        title: "UX Design Certificate",
-        subtitle: "Google UX Design - Coursera"
+        date: "2025",
+        title: "DTS en MMI",
+        subtitle: "Institut national de la Poste, des Technologies de l'Information et de la Communication"
     },
     {
-        date: "Jan 2020 - Mar 2020",
-        title: "Front-End Web Development Bootcamp",
-        subtitle: "General Assembly — New York, NY"
+        date: "2026 - en cours",
+        title: "Licence 3",
+        subtitle: "Institut national de la Poste, des Technologies de l'Information et de la Communication"
     }
 ];
 

@@ -1,42 +1,24 @@
-# Typefolio - NextJs Template
+ # Portfolio de Yesse Boukinda
 
-#### Preview
+ Portfolio personnel de Yesse Boukinda, développeur web et mobile.
 
- - [Demo](https://themewagon.github.io/Typefolio/)
+ ## Lancer le projet
 
-#### Download
- - [Download from ThemeWagon](https://themewagon.com/themes/Typefolio/)
+ Installer les dépendances :
 
-## Getting Started
+ ```bash
+ npm install
+ ```
 
-1. Clone Repository
-```
-git clone https://github.com/themewagon/Typefolio.git
-```
-2. Install Dependencies
-```
-npm i
-```
-3. Run the development server:
+ Lancer le serveur de développement :
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+ ```bash
+ npm run dev
+ ```
 
-## Author 
-```
-Design and code is completely written by Getnextjstemplates and Wrappixel team. 
-```
+ Le portfolio présente les projets professionnels de Yesse Boukinda, notamment la GED, Messenger-Linu et l'application mobile du CNTS.
 
-## License
+ ## Auteur
 
- - Design and Code is Copyright &copy; [Getnextjstemplates](https://getnextjstemplates.com)
- - Licensed cover under [MIT]
- - Distributed by [ThemeWagon](https://themewagon.com)
+ Conception et maintenance par Yesse Boukinda.
 

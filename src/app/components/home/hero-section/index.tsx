@@ -5,19 +5,14 @@ import { Button } from "@/components/ui/button";
 const HeroSection = () => {
     const socialIcon = [
         {
-            img: "/images/icon/twitter-icon.svg",
-            href: "#!",
-            icon: "Twitter"
+            img: "/images/icon/github-icon.svg",
+            href: "https://github.com/yesseboukinda-afk",
+            icon: "GitHub"
         },
         {
-            img: "/images/icon/behance-icon.svg",
-            href: "#!",
-            icon: "Behance"
-        },
-        {
-            img: "/images/icon/dribble-icon.svg",
-            href: "#!",
-            icon: "Dribble"
+            img: "/images/icon/facebook-icon.svg",
+            href: "https://facebook.com/yesseboukinda",
+            icon: "Facebook"
         },
     ];
     return (
@@ -45,7 +40,7 @@ const HeroSection = () => {
                                 <div className="flex items-center gap-2">
                                     {socialIcon?.map((value, index) => {
                                         return (
-                                            <Link href={value?.href} key={index} className="w-fit p-2.5 sm:p-3.5 hover:bg-primary/5 border border-primary/10 rounded-full">
+                                            <Link href={value?.href} target="_blank" rel="noreferrer noopener" key={index} className="w-fit p-2.5 sm:p-3.5 hover:bg-primary/5 border border-primary/10 rounded-full">
                                                 <Image src={value?.img} alt={value?.icon} width={18} height={18} />
                                             </Link>
                                         )

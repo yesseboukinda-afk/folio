@@ -26,7 +26,7 @@ const ProjectOverview = () => {
                 <div className="border-x border-primary/10">
                     <div className="flex flex-col max-w-3xl mx-auto gap-10 sm:gap-16 px-4 sm:px-7 py-9 md:py-16 ">
                         <div className="flex flex-col xs:flex-row items-start gap-5 xs:gap-10 md:gap-28 lg:gap-5">
-                            <p className="max-w-fit lg:max-w-2xs w-full text-sm tracking-[2px] text-primary uppercase font-medium">Case studies</p>
+                            <p className="max-w-fit lg:max-w-2xs w-full text-sm tracking-[2px] text-primary uppercase font-medium">Études de cas</p>
                             <div className="flex flex-col gap-2.5">
                                 {projectData?.caseStudies?.map((value: any, index: any) => {
                                     return (
@@ -40,7 +40,7 @@ const ProjectOverview = () => {
                         </div>
 
                         <div className="flex flex-col xs:flex-row items-start gap-5 xs:gap-10 md:gap-28 lg:gap-5">
-                            <p className="max-w-fit lg:max-w-2xs w-full text-sm tracking-[2px] text-primary uppercase font-medium">Side Projects</p>
+                            <p className="max-w-fit lg:max-w-2xs w-full text-sm tracking-[2px] text-primary uppercase font-medium">Projets annexes</p>
                             <div className="flex flex-col gap-2.5">
                                 {projectData?.sideProjects?.map((value: any, index: any) => {
                                     const isComingSoon = value?.comingSoon;
@@ -69,7 +69,7 @@ const ProjectOverview = () => {
                                     return isComingSoon ? (
                                         <div key={index}>{content}</div>
                                     ) : (
-                                        <Link key={index} href="/" className="group">
+                                        <Link key={index} href={value?.url} target="_blank" rel="noreferrer noopener" className="group">
                                             {content}
                                         </Link>
                                     );
