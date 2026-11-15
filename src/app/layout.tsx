@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "./components/layout/header";
-import Footer from "./components/layout/footer";
+import SiteChrome from "./components/layout/site-chrome";
 
 const inter = Inter({
   variable: "--font-inter-sans",
@@ -22,9 +21,7 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body className={inter.className}>
-        <Header/>
-        {children}
-        <Footer/>
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

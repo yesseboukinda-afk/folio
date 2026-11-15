@@ -1,7 +1,8 @@
 import { Badge } from "@/components/ui/badge";
+import type { PortfolioContent } from "@/lib/portfolio-content";
+import SkillIcon from "./skill-icon";
 
-const AboutMe = () => {
-    const servicesBedge = ["HTML", "CSS", "JavaScript", "PHP", "React Native", "Responsive Design", "Git", "GitHub", "Linux", "UI Development"];
+const AboutMe = ({ about }: { about: PortfolioContent["about"] }) => {
     return (
         <section>
             <div className="container">
@@ -9,16 +10,19 @@ const AboutMe = () => {
                     <div className="flex flex-col gap-9 sm:gap-12 max-w-3xl mx-auto px-4 sm:px-7 py-11 md:py-20">
                         <div className="flex flex-col gap-4">
                             <p className="text-sm tracking-[2px] text-primary uppercase font-medium">À propos</p>
-                            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px]">Bonjour. Je suis Yesse, <span className="bg-[linear-gradient(90deg,_rgba(243,202,77,0.4)_0%,_rgba(243,202,77,0.05)_100%)]">développeur web et mobile</span>, et je crée des solutions numériques claires, accessibles et adaptées aux besoins réels.</h2>
-                            <h5 className="text-secondary font-normal">Je transforme les idées en sites web et applications fonctionnels, de la conception au déploiement.</h5>
+                            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px]">{about.headlineStart} <span className="bg-[linear-gradient(90deg,_rgba(243,202,77,0.4)_0%,_rgba(243,202,77,0.05)_100%)]">{about.headlineAccent}</span>{about.headlineEnd}</h2>
+                            <h5 className="text-secondary font-normal">{about.summary}</h5>
                         </div>
                         <div className="flex flex-col gap-4">
                             <p className="text-sm text-primary uppercase font-medium">Compétences</p>
                             <div className="flex flex-wrap gap-2 sm:gap-3">
-                                {servicesBedge?.map((value, index) => {
+                                {about.skills.map((value, index) => {
                                     return (
-                                        <Badge variant={"outline"} key={index} className="py-1.5 px-3 rounded-lg">
-                                            <p className="text-xs sm:text-sm font-medium text-primary">{value}</p>
+                                        <Badge variant={"outline"} key={`${value}-${index}`} className="py-1.5 px-3 rounded-lg">
+                                            <span className="flex items-center gap-2 text-xs sm:text-sm font-medium text-primary">
+                                                <SkillIcon skill={value} />
+                                                {value}
+                                            </span>
                                         </Badge>
                                     )
                                 })}
