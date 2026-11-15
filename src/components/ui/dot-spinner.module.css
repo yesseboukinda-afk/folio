@@ -1,0 +1,88 @@
+.spinner {
+  position: relative;
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  animation: rotate 1.2s linear infinite;
+}
+
+.dot {
+  position: absolute;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.dot:nth-child(1) {
+  top: 0.0625rem;
+  left: 0.8125rem;
+}
+
+.dot:nth-child(2) {
+  top: 0.28125rem;
+  left: 1.34375rem;
+  animation-delay: -0.15s;
+}
+
+.dot:nth-child(3) {
+  top: 0.8125rem;
+  left: 1.5625rem;
+  animation-delay: -0.3s;
+}
+
+.dot:nth-child(4) {
+  top: 1.34375rem;
+  left: 1.34375rem;
+  animation-delay: -0.45s;
+}
+
+.dot:nth-child(5) {
+  top: 1.5625rem;
+  left: 0.8125rem;
+  animation-delay: -0.6s;
+}
+
+.dot:nth-child(6) {
+  top: 1.34375rem;
+  left: 0.28125rem;
+  animation-delay: -0.75s;
+}
+
+.dot:nth-child(7) {
+  top: 0.8125rem;
+  left: 0.0625rem;
+  animation-delay: -0.9s;
+}
+
+.dot:nth-child(8) {
+  top: 0.28125rem;
+  left: 0.28125rem;
+  animation-delay: -1.05s;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.55);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .dot {
+    animation: none;
+  }
+}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Film, Trash2 } from "lucide-react";
 import type { ProjectMedia } from "@/lib/portfolio-content";
+import DotSpinner from "@/components/ui/dot-spinner";
 
 interface ProjectMediaEditorProps {
     media: ProjectMedia[];
@@ -173,6 +174,15 @@ export default function ProjectMediaEditor({
                 </button>
             </div>
 
+            {busy && (
+                <div
+                    role="status"
+                    aria-label="Téléversement en cours"
+                    className="flex justify-center py-1"
+                >
+                    <DotSpinner className="text-violet-700" />
+                </div>
+            )}
             {errorMessage && <p role="alert" className="text-sm text-red-700">{errorMessage}</p>}
         </section>
     );

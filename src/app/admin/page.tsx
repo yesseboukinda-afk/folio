@@ -20,6 +20,7 @@ import {
     getSupabaseBrowserClient,
     hasSupabaseConfig,
 } from "@/lib/supabase-browser";
+import DotSpinner from "@/components/ui/dot-spinner";
 import ProjectMediaEditor from "./project-media-editor";
 import SkillIcon from "../components/home/about-me/skill-icon";
 
@@ -270,8 +271,9 @@ export default function AdminPage() {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [notice, setNotice] = useState("");
-    const [busy, setBusy] = useState(false);
+    const [busyAction, setBusyAction] = useState<"login" | "save" | "signOut" | null>(null);
     const [uploading, setUploading] = useState("");
+    const busy = busyAction !== null;
 
     useEffect(() => {
         if (!hasSupabaseConfig()) {
@@ -365,7 +367,7 @@ export default function AdminPage() {
 
     const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setBusy(true);
+        setBusyAction("login");
         setErrorMessage("");
 
         try {
@@ -382,12 +384,12 @@ export default function AdminPage() {
                 error instanceof Error ? error.message : "Impossible de se connecter.",
             );
         } finally {
-            setBusy(false);
+            setBusyAction(null);
         }
     };
 
     const saveContent = async () => {
-        setBusy(true);
+        setBusyAction("save");
         setErrorMessage("");
         setNotice("");
 
@@ -414,7 +416,7 @@ export default function AdminPage() {
                 error instanceof Error ? error.message : "Impossible d'enregistrer le contenu.",
             );
         } finally {
-            setBusy(false);
+            setBusyAction(null);
         }
     };
 
@@ -513,7 +515,7 @@ export default function AdminPage() {
     };
 
     const signOut = async () => {
-        setBusy(true);
+        setBusyAction("signOut");
         setErrorMessage("");
         try {
             const { error } = await getSupabaseBrowserClient().auth.signOut();
@@ -527,7 +529,7 @@ export default function AdminPage() {
                 error instanceof Error ? error.message : "Impossible de fermer la session.",
             );
         } finally {
-            setBusy(false);
+            setBusyAction(null);
         }
     };
 
@@ -608,14 +610,28 @@ export default function AdminPage() {
                     className="mt-1 block w-full text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-violet-50 file:px-3 file:py-2 file:font-medium file:text-violet-700 hover:file:bg-violet-100"
                 />
             </label>
-            {uploading === folder && <p className="text-sm text-slate-500">Envoi en cours…</p>}
+            {uploading === folder && (
+                <div
+                    role="status"
+                    aria-label="Téléversement en cours"
+                    className="flex justify-center py-1"
+                >
+                    <DotSpinner className="text-violet-700" />
+                </div>
+            )}
         </div>
     );
 
     if (status === "checking") {
         return (
             <main className="grid min-h-screen place-items-center bg-slate-50 p-6 text-slate-600">
-                Vérification de l’accès administrateur…
+                <div
+                    role="status"
+                    aria-label="Vérification de l’accès administrateur"
+                    className="rounded-full bg-white p-3 shadow-sm"
+                >
+                    <DotSpinner className="text-violet-700" />
+                </div>
             </main>
         );
     }
@@ -677,9 +693,11 @@ export default function AdminPage() {
                     <button
                         type="submit"
                         disabled={busy || !email || !password}
-                        className="mt-6 w-full rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+                        aria-busy={busyAction === "login"}
+                        aria-label={busyAction === "login" ? "Connexion en cours" : undefined}
+                        className="mt-6 flex w-full items-center justify-center rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        {busy ? "Connexion…" : "Se connecter"}
+                        {busyAction === "login" ? <DotSpinner className="text-white" /> : "Se connecter"}
                     </button>
                     <Link
                         href="/"
@@ -709,9 +727,13 @@ export default function AdminPage() {
                         type="button"
                         onClick={() => void signOut()}
                         disabled={busy}
-                        className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 disabled:opacity-50"
+                        aria-busy={busyAction === "signOut"}
+                        aria-label={busyAction === "signOut" ? "Déconnexion en cours" : undefined}
+                        className="inline-flex min-w-[140px] items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 disabled:opacity-50"
                     >
-                        Se déconnecter
+                        {busyAction === "signOut" ? (
+                            <DotSpinner className="text-slate-700" />
+                        ) : "Se déconnecter"}
                     </button>
                 </header>
 
@@ -1038,9 +1060,13 @@ export default function AdminPage() {
                         type="button"
                         onClick={() => void saveContent()}
                         disabled={busy || Boolean(uploading)}
-                        className="rounded-lg bg-violet-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-violet-800 disabled:cursor-not-allowed disabled:opacity-50"
+                        aria-busy={busyAction === "save"}
+                        aria-label={busyAction === "save" ? "Enregistrement en cours" : undefined}
+                        className="inline-flex min-w-[220px] items-center justify-center rounded-lg bg-violet-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-violet-800 disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        {busy ? "Enregistrement…" : "Enregistrer les modifications"}
+                        {busyAction === "save" ? (
+                            <DotSpinner className="text-white" />
+                        ) : "Enregistrer les modifications"}
                     </button>
                 </div>
             </div>
