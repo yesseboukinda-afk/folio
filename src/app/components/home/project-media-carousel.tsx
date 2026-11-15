@@ -142,7 +142,7 @@ export default function ProjectMediaCarousel({
                         type="button"
                         aria-label={`Média précédent pour ${title}`}
                         onClick={selectPrevious}
-                        className="absolute left-2 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-black/60 text-white transition hover:bg-black/80"
+                        className="absolute left-2 top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full bg-black/60 text-white transition hover:bg-black/80 lg:grid"
                     >
                         <ChevronLeft aria-hidden="true" size={20} />
                     </button>
@@ -150,7 +150,7 @@ export default function ProjectMediaCarousel({
                         type="button"
                         aria-label={`Média suivant pour ${title}`}
                         onClick={selectNext}
-                        className="absolute right-2 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-black/60 text-white transition hover:bg-black/80"
+                        className="absolute right-2 top-1/2 z-10 hidden size-9 -translate-y-1/2 place-items-center rounded-full bg-black/60 text-white transition hover:bg-black/80 lg:grid"
                     >
                         <ChevronRight aria-hidden="true" size={20} />
                     </button>
