@@ -55,84 +55,86 @@ export default function ProjectMediaCarousel({
                 ? [{ type: "image" as const, src: fallbackImage }]
                 : [];
     const [activeIndex, setActiveIndex] = useState(0);
-    const touchStart = useRef<{ x: number; y: number } | null>(null);
+    const carouselRef = useRef<HTMLDivElement>(null);
 
     if (items.length === 0) {
         return null;
     }
 
-    const currentIndex = activeIndex % items.length;
-    const currentItem = items[currentIndex];
-    const embedUrl = currentItem.type === "video" ? getVideoEmbedUrl(currentItem.src) : null;
+    const currentIndex = Math.min(activeIndex, items.length - 1);
+    const scrollToIndex = (index: number) => {
+        const carousel = carouselRef.current;
+        if (!carousel) {
+            return;
+        }
+
+        carousel.scrollTo({
+            left: index * carousel.clientWidth,
+            behavior: "smooth",
+        });
+        setActiveIndex(index);
+    };
 
     const selectPrevious = () => {
-        setActiveIndex((index) => (index - 1 + items.length) % items.length);
+        scrollToIndex((currentIndex - 1 + items.length) % items.length);
     };
     const selectNext = () => {
-        setActiveIndex((index) => (index + 1) % items.length);
-    };
-    const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
-        const start = touchStart.current;
-        const touch = event.changedTouches[0];
-        touchStart.current = null;
-
-        if (!start || !touch) {
-            return;
-        }
-
-        const deltaX = touch.clientX - start.x;
-        const deltaY = touch.clientY - start.y;
-        if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) {
-            return;
-        }
-
-        if (deltaX > 0) {
-            selectPrevious();
-        } else {
-            selectNext();
-        }
+        scrollToIndex((currentIndex + 1) % items.length);
     };
 
     return (
-        <div
-            className="relative aspect-video w-full touch-pan-y overflow-hidden rounded-xl bg-slate-100"
-            onTouchStart={(event) => {
-                const touch = event.changedTouches[0];
-                touchStart.current = touch
-                    ? { x: touch.clientX, y: touch.clientY }
-                    : null;
-            }}
-            onTouchEnd={handleTouchEnd}
-            onTouchCancel={() => {
-                touchStart.current = null;
-            }}
-        >
-            {currentItem.type === "image" ? (
-                <Image
-                    src={currentItem.src}
-                    alt={`${title} — image ${currentIndex + 1}`}
-                    fill
-                    unoptimized
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                />
-            ) : embedUrl ? (
-                <iframe
-                    src={embedUrl}
-                    title={`${title} — vidéo ${currentIndex + 1}`}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="absolute inset-0 h-full w-full border-0"
-                />
-            ) : (
-                <video
-                    src={currentItem.src}
-                    controls
-                    preload="metadata"
-                    playsInline
-                    className="absolute inset-0 h-full w-full object-contain"
-                />
-            )}
+        <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-100">
+            <div
+                ref={carouselRef}
+                onScroll={(event) => {
+                    const carousel = event.currentTarget;
+                    const index = Math.round(carousel.scrollLeft / carousel.clientWidth);
+                    setActiveIndex(Math.min(index, items.length - 1));
+                }}
+                className="flex h-full w-full snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+                {items.map((item, index) => {
+                    const embedUrl = item.type === "video" ? getVideoEmbedUrl(item.src) : null;
+
+                    return (
+                        <div
+                            key={`${item.type}-${item.src}-${index}`}
+                            className={`relative h-full w-full shrink-0 snap-center transition-opacity duration-500 ease-in-out motion-reduce:transition-none ${
+                                index === currentIndex ? "opacity-100" : "opacity-75"
+                            }`}
+                        >
+                            {item.type === "image" ? (
+                                <Image
+                                    src={item.src}
+                                    alt={`${title} — image ${index + 1}`}
+                                    fill
+                                    unoptimized
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    className="object-cover"
+                                />
+                            ) : index !== currentIndex ? (
+                                <div className="h-full w-full bg-slate-200" aria-hidden="true" />
+                            ) : embedUrl ? (
+                                <iframe
+                                    src={embedUrl}
+                                    title={`${title} — vidéo ${index + 1}`}
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                    className="absolute inset-0 h-full w-full border-0"
+                                />
+                            ) : (
+                                <video
+                                    src={item.src}
+                                    controls
+                                    preload="metadata"
+                                    playsInline
+                                    className="absolute inset-0 h-full w-full object-contain"
+                                />
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
 
             {items.length > 1 && (
                 <>
@@ -153,7 +155,7 @@ export default function ProjectMediaCarousel({
                         <ChevronRight aria-hidden="true" size={20} />
                     </button>
                     <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 rounded-full bg-black/75 px-3 py-1.5 text-sm font-semibold text-white">
-                        {currentItem.type === "video" && <Film aria-hidden="true" size={12} />}
+                        {items[currentIndex].type === "video" && <Film aria-hidden="true" size={12} />}
                         <span aria-live="polite">{currentIndex + 1} / {items.length}</span>
                     </div>
                 </>

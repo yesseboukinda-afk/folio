@@ -115,15 +115,21 @@ function ProjectCard({
         <article className="flex min-w-0 flex-col gap-3 rounded-xl border border-primary/10 p-3">
             <ProjectMediaCarousel media={project.media} title={project.name} />
             <div className="flex flex-wrap items-center justify-between gap-2">
-                {project.url && !project.comingSoon ? (
-                    <Link href={project.url} target="_blank" rel="noreferrer noopener">
-                        <h4>{project.name}</h4>
-                    </Link>
-                ) : (
+                <div className="flex min-w-0 flex-col items-start gap-1">
                     <h4 className={project.comingSoon ? "text-muted-foreground" : ""}>
                         {project.name}
                     </h4>
-                )}
+                    {project.url && !project.comingSoon && (
+                        <Link
+                            href={project.url}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="max-w-full break-all text-sm font-medium text-violet-700 underline decoration-violet-300 underline-offset-2 transition hover:text-violet-900"
+                        >
+                            {project.url.replace(/^https?:\/\//, "")}
+                        </Link>
+                    )}
+                </div>
                 {project.comingSoon && (
                     <span className="whitespace-nowrap rounded-lg border border-slate-300 bg-slate-100 px-3 py-1.5 text-sm font-semibold leading-5 text-slate-800">
                         Bientôt disponible
