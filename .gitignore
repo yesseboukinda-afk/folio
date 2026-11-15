@@ -65,6 +65,7 @@ secret.*
 .gcloud/
 /supabase/.temp/
 /supabase/schema.sql
+/cv.pdf
 
 # vercel
 .vercel

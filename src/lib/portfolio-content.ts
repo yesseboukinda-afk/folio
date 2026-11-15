@@ -52,7 +52,6 @@ export interface PortfolioContent {
         email: string;
         photo: string;
         banner: string;
-        resumeUrl: string;
         socialLinks: SocialLink[];
     };
     about: {
@@ -80,7 +79,6 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
         email: "yesseboukinda@gmail.com",
         photo: "/images/hero-sec/user-img.png",
         banner: "/images/hero-sec/banner-bg-img.png",
-        resumeUrl: "",
         socialLinks: [
             {
                 label: "GitHub",
@@ -204,8 +202,12 @@ export const DEFAULT_PORTFOLIO_CONTENT: PortfolioContent = {
             },
         ],
     },
-    footerText: "2026 © Conception et maintenance par Yesse Boukinda",
+    footerText: "Conception et maintenance par Yesse Boukinda",
 };
+
+export function getEditableFooterText(footerText: string): string {
+    return footerText.replace(/^\s*\d{4}\s*©\s*/, "").trim();
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -311,7 +313,6 @@ export function isPortfolioContent(value: unknown): value is PortfolioContent {
             "email",
             "photo",
             "banner",
-            "resumeUrl",
         ]) &&
         isSocialLinks(value.profile.socialLinks) &&
         hasStringFields(value.about, ["headlineStart", "headlineAccent", "headlineEnd", "summary"]) &&

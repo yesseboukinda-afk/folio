@@ -7,6 +7,7 @@ import { Eye, EyeOff, X } from "lucide-react";
 import {
     DEFAULT_PORTFOLIO_CONTENT,
     type EngagementType,
+    getEditableFooterText,
     isPortfolioContent,
     type EducationItem,
     type ExperienceItem,
@@ -51,7 +52,7 @@ function Field({
                 placeholder={placeholder}
             />
         );
-    }
+                }
 
     return (
         <label className="block text-sm font-medium text-slate-700">
@@ -428,7 +429,7 @@ export default function AdminPage() {
                     "image/jpeg": "jpg",
                     "image/png": "png",
                     "image/webp": "webp",
-                }
+                    }
                 : {
                     "video/mp4": "mp4",
                     "video/webm": "webm",
@@ -721,7 +722,6 @@ export default function AdminPage() {
                             <Field label="Titre professionnel" value={content.profile.title} onChange={(title) => updateProfile({ title })} />
                             <Field label="Localisation" value={content.profile.location} onChange={(location) => updateProfile({ location })} />
                             <Field label="Adresse e-mail" type="email" value={content.profile.email} onChange={(emailValue) => updateProfile({ email: emailValue })} />
-                            <Field label="Lien du portfolio à télécharger" value={content.profile.resumeUrl} onChange={(resumeUrl) => updateProfile({ resumeUrl })} />
                         </div>
                         <div className="mt-5 grid gap-5 md:grid-cols-2">
                             {imageUploadField(
@@ -1025,7 +1025,7 @@ export default function AdminPage() {
                     </SectionCard>
 
                     <SectionCard title="Pied de page">
-                        <Field label="Texte de bas de page" value={content.footerText} onChange={(footerText) => setContent((current) => ({ ...current, footerText }))} />
+                        <Field label="Texte de bas de page" value={getEditableFooterText(content.footerText)} onChange={(footerText) => setContent((current) => ({ ...current, footerText }))} />
                     </SectionCard>
                 </div>
 

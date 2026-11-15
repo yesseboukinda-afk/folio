@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { PortfolioContent, ProjectLink, ProjectMedia } from "@/lib/portfolio-content";
-import { Button } from "@/components/ui/button";
 import ProjectMediaCarousel from "../project-media-carousel";
 
 type ProjectCardData = Omit<ProjectLink, "media"> & {
@@ -126,12 +125,12 @@ function ProjectCard({
                     </h4>
                 )}
                 {project.comingSoon && (
-                    <span className="rounded-lg bg-muted px-3 py-1.5 text-xs text-muted-foreground">
+                    <span className="whitespace-nowrap rounded-lg border border-slate-300 bg-slate-100 px-3 py-1.5 text-sm font-semibold leading-5 text-slate-800">
                         Bientôt disponible
                     </span>
                 )}
                 {project.engagementType && (
-                    <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                    <span className="whitespace-nowrap rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm font-semibold leading-5 text-emerald-900">
                         {project.engagementType === "freelance" ? "Freelance" : "Stage"}
                     </span>
                 )}
@@ -149,11 +148,9 @@ function ProjectCard({
 const ProjectOverview = ({
     projectOverview,
     featuredWork,
-    resumeUrl,
 }: {
     projectOverview: PortfolioContent["projectOverview"];
     featuredWork: PortfolioContent["featuredWork"];
-    resumeUrl: string;
 }) => {
     const projects = getUniqueProjects(featuredWork, projectOverview);
 
@@ -166,11 +163,6 @@ const ProjectOverview = ({
                             <p className="text-sm tracking-[2px] text-primary uppercase font-medium">
                                 Projets
                             </p>
-                            <Button asChild variant="outline" className="h-auto">
-                                <Link href={resumeUrl || "#"} className="px-5 py-3">
-                                    Download Portfolio
-                                </Link>
-                            </Button>
                         </div>
                         <div className="grid min-w-0 gap-4 sm:grid-cols-2">
                             {projects.map((project, index) => (

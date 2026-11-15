@@ -23,7 +23,6 @@ const Page = async () => {
         <ProjectOverview
           projectOverview={content.projectOverview}
           featuredWork={content.featuredWork}
-          resumeUrl={content.profile.resumeUrl}
         />
         <Divider/>
       </main>

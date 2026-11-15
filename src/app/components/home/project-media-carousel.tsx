@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Film } from "lucide-react";
 import type { ProjectMedia } from "@/lib/portfolio-content";
 
@@ -55,6 +55,7 @@ export default function ProjectMediaCarousel({
                 ? [{ type: "image" as const, src: fallbackImage }]
                 : [];
     const [activeIndex, setActiveIndex] = useState(0);
+    const touchStart = useRef<{ x: number; y: number } | null>(null);
 
     if (items.length === 0) {
         return null;
@@ -70,9 +71,42 @@ export default function ProjectMediaCarousel({
     const selectNext = () => {
         setActiveIndex((index) => (index + 1) % items.length);
     };
+    const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+        const start = touchStart.current;
+        const touch = event.changedTouches[0];
+        touchStart.current = null;
+
+        if (!start || !touch) {
+            return;
+        }
+
+        const deltaX = touch.clientX - start.x;
+        const deltaY = touch.clientY - start.y;
+        if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+            return;
+        }
+
+        if (deltaX > 0) {
+            selectPrevious();
+        } else {
+            selectNext();
+        }
+    };
 
     return (
-        <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-slate-100">
+        <div
+            className="relative aspect-video w-full touch-pan-y overflow-hidden rounded-xl bg-slate-100"
+            onTouchStart={(event) => {
+                const touch = event.changedTouches[0];
+                touchStart.current = touch
+                    ? { x: touch.clientX, y: touch.clientY }
+                    : null;
+            }}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={() => {
+                touchStart.current = null;
+            }}
+        >
             {currentItem.type === "image" ? (
                 <Image
                     src={currentItem.src}
@@ -118,7 +152,7 @@ export default function ProjectMediaCarousel({
                     >
                         <ChevronRight aria-hidden="true" size={20} />
                     </button>
-                    <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 rounded-full bg-black/60 px-2 py-1 text-xs text-white">
+                    <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 rounded-full bg-black/75 px-3 py-1.5 text-sm font-semibold text-white">
                         {currentItem.type === "video" && <Film aria-hidden="true" size={12} />}
                         <span aria-live="polite">{currentIndex + 1} / {items.length}</span>
                     </div>
